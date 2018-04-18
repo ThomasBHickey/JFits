@@ -26,11 +26,6 @@ displayFits =: 4 : 0 NB. maxSize displayFits file path or http URL
 	sfimage=: (maxdim % maxdim <. x) sample2D fimage
 	view_image sfimage
 )
-1000 displayFits 'd:\fits\NGC4500.fits'
-NB. 2000 displayFits 'd:\fits\orionhst05085.fits'
-NB. 2000 displayFits 'https://fits.gsfc.nasa.gov/samples/WFPC2u5780205r_c0fx.fits'
-NB.1000 displayFits 'https://fits.gsfc.nasa.gov/samples/WFPC2ASSNu5780205bx.fits'
-NB. 2000 displayFits 'd:\fits\orimos-9.fits'
-NB. 1000 displayFits 'd:\fits\h_jupiter_255_070217b_drz_sci.fits'
-NB. 2000 displayFits 'd:\fits\h_m82_b_s05_drz_sci.fits'
+1000 displayFits jpath '~/fitsSamples/NGC4500.fits'
+
 
