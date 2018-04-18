@@ -9,7 +9,7 @@ getHdrVal =: 4 : '{.0". 9}. ({.I.(8{."1 x)-:"1 ]8{.y){x'NB. Pad label, find 1st,
 splitFitsData =: 3 : 0 NB. y is raw fits file contents
     	data80=. (((#y)%80), 80) $ y
 	endPos =. {.I. (8{."1 data80)-:"1 ]8{.'END'
-	numHdrBlocks =. >:<.endPos%36  NB. File organized in 2880 byte blocks
+	numHdrBlocks =. >:<.endPos%36        NB. File organized in 2880 byte blocks
 	hdata  =. (>:endPos) {. data80
 	rdata  =. (numHdrBlocks*36*80) }. y  NB. raw Image data follows hdr blocks
 	bitpix =. hdata getHdrVal 'BITPIX'
@@ -38,7 +38,7 @@ scaleT2D =: 4 : 0  NB. (minCut, maxCut) scaleT2D 2Ddata
 	ry =. minWanted (I. nanPos) } ry  NB. replace NAN's
 	ry =. minWanted (I. (ry<minWanted)) } ry
 	ry =. maxWanted (I. (ry>maxWanted)) } ry
-	ry =. ry - minWanted NB. offset offset
+	ry =. ry - minWanted NB. makes minWanted at 0
 	scale =. 255% maxWanted-minWanted
 	|.($y) $ <. ry*scale  NB. Transposed 2D array
 )
