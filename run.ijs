@@ -1,10 +1,6 @@
 NB. JFits/run.ijs
 
-jfitsdir=:3 :0
-  ({.~ i:&'/') rplc&'\/' ;(4!:3''){~4!:4<'jfitsdir'
-)
-
-load (jfitsdir''),'/init.ijs'
+load '~user\projects\JFits\init.ijs'
 
 displayFits =: 4 : 0 NB. maxSize displayFits file path or http URL
 	if. (*/'http://'=7{.y) +. */'https://'=8{.y
@@ -30,6 +26,6 @@ displayFits =: 4 : 0 NB. maxSize displayFits file path or http URL
 	sfimage=: (maxdim % maxdim <. x) sample2D fimage
 	view_image sfimage
 )
-1000 displayFits (jfitsdir''),'/fitsSamples/NGC4500.fits'
+1000 displayFits jpath '~/fitsSamples/NGC4500.fits'
 
 
