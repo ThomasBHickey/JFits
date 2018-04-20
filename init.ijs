@@ -20,6 +20,7 @@ splitFitsData =: 3 : 0 NB. y is raw fits file contents
 	  case. _64 do. adata =. (NAXIS3,NAXIS2,NAXIS1)$ |. _2 fc |. rdata
 	  case. 16  do. adata =. (NAXIS3,NAXIS2,NAXIS1)$ |. _1 ic |. rdata
 	  case. 32  do. adata =. (NAXIS3,NAXIS2,NAXIS1)$ |. _2 ic |. rdata
+	  case. do. 'Invalid BITPIX' assert 0
 	end.
 	hdata;adata
 )
