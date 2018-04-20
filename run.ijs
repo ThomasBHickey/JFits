@@ -26,6 +26,6 @@ displayFits =: 4 : 0 NB. maxSize displayFits file path or http URL
 	sfimage=: (maxdim % maxdim <. x) sample2D fimage
 	view_image sfimage
 )
-1000 dispalyFits jpath'~user/projects/JFits/fitsSamples/NGC4500.fits'
+1000 displayFits jpath'~user/projects/JFits/fitsSamples/NGC4500.fits'
 
 
