@@ -12,17 +12,14 @@ splitFitsData =: 3 : 0 NB. y is raw fits file contents
 	numHdrBlocks =. >:<.endPos%36        NB. File organized in 2880 byte blocks
 	hdata  =. (>:endPos) {. data80
 	rdata  =. (numHdrBlocks*36*80) }. y  NB. raw Image data follows hdr blocks
-	bitpix =. hdata getHdrVal 'BITPIX'
-	naxis  =. hdata getHdrVal 'NAXIS'
-	naxis1 =. hdata getHdrVal 'NAXIS1'
-	naxis2 =. hdata getHdrVal 'NAXIS2'
-	naxis3 =. hdata getHdrVal 'NAXIS3'
-	naxis3 =. (naxis3=0) { naxis3, 1
-	select. bitpix
-	  case. _32 do. adata =. (naxis3,naxis2,naxis1)$ |. _1 fc |. rdata
-	  case. _64 do. adata =. (naxis3,naxis2,naxis1)$ |. _2 fc |. rdata
-	  case. 16  do. adata =. (naxis3,naxis2,naxis1)$ |. _1 ic |. rdata
-	  case. 32  do. adata =. (naxis3,naxis2,naxis1)$ |. _2 ic |. rdata
+	fields =. ;: 'BITPIX NAXIS NAXIS1 NAXIS2 NAXIS3'
+     (fields) =. hdata&getHdrVal&.> fields
+	NAXIS3 =. NAXIS3 >. 1
+	select. BITPIX
+	  case. _32 do. adata =. (NAXIS3,NAXIS2,NAXIS1)$ |. _1 fc |. rdata
+	  case. _64 do. adata =. (NAXIS3,NAXIS2,NAXIS1)$ |. _2 fc |. rdata
+	  case. 16  do. adata =. (NAXIS3,NAXIS2,NAXIS1)$ |. _1 ic |. rdata
+	  case. 32  do. adata =. (NAXIS3,NAXIS2,NAXIS1)$ |. _2 ic |. rdata
 	end.
 	hdata;adata
 )
