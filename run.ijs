@@ -21,7 +21,7 @@ displayFits =: 4 : 0 NB. maxSize displayFits file path or http URL
 	  case. 1 do.
 		'g b'=. r;r
 	end.
-	fimage=. (r*2^16) + (g*2^8) + b
+	fimage=. (r*256*256) + (g *256) + b
 	maxdim =. >./$fimage
 	sfimage=. (maxdim % maxdim <. x) sample2D fimage
 	view_image sfimage
