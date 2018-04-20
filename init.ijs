@@ -1,8 +1,5 @@
 NB. JFits/init.ijs
 
-require '~addons/media/imagekit/imagekit.ijs' 
-require 'web/gethttp'
-
 NB. The Header data is in 80 byte rows.  8 bytes of label, possibly followed by '='
 getHdrVal =: 4 : '{.0". 9}. ({.I.(8{."1 x)-:"1 ]8{.y){x'NB. Pad label, find 1st, make rest numeric
 
@@ -25,13 +22,11 @@ splitFitsData =: 3 : 0 NB. y is raw fits file contents
 )
 
 scaleT2D =: 4 : 0  NB. (minCut, maxCut) scaleT2D 2Ddata
-	'minCut maxCut' =. x  NB. amount of small/large data to ignore
 	ry =. ,y     NB. easier raveled
 	nanPos =. 128!:5 ry   
 	numData =. (I. -. nanPos) { ry 
 	srtData =. /:~ numData
-	minWanted =. (<.minCut*#srtData){srtData
-	maxWanted =. (<.maxCut*#srtData){srtData
+     'minWanted maxWanted' =: (<.x*#srtData){srtData
 	ry =. minWanted (I. nanPos) } ry  NB. replace NAN's
 	ry =. minWanted (I. (ry<minWanted)) } ry
 	ry =. maxWanted (I. (ry>maxWanted)) } ry
