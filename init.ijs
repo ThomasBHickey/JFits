@@ -14,12 +14,12 @@ splitFitsData =: 3 : 0 NB. y is raw fits file contents
 	rdata  =. (numHdrBlocks*36*80) }. y  NB. raw Image data follows hdr blocks
 	fields =. ;: 'BITPIX NAXIS NAXIS1 NAXIS2 NAXIS3'
      (fields) =. hdata&getHdrVal&.> fields
-	NAXIS3 =. NAXIS3 >. 1
+	shape =. ((NAXIS3>.1),NAXIS2,NAXIS1)  NB. 3D even if only 2D data
 	select. BITPIX
-	  case. _32 do. adata =. (NAXIS3,NAXIS2,NAXIS1)$ |. _1 fc |. rdata
-	  case. _64 do. adata =. (NAXIS3,NAXIS2,NAXIS1)$ |. _2 fc |. rdata
-	  case. 16  do. adata =. (NAXIS3,NAXIS2,NAXIS1)$ |. _1 ic |. rdata
-	  case. 32  do. adata =. (NAXIS3,NAXIS2,NAXIS1)$ |. _2 ic |. rdata
+	  case. _32 do. adata =. shape $ |. _1 fc |. rdata
+	  case. _64 do. adata =. shape $ |. _2 fc |. rdata
+	  case. 16  do. adata =. shape $ |. _1 ic |. rdata
+	  case. 32  do. adata =. shape $ |. _2 ic |. rdata
 	  case. do. 'Invalid BITPIX' assert 0
 	end.
 	hdata;adata
