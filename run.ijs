@@ -4,11 +4,11 @@ load '~user\projects\JFits\init.ijs'
 
 displayFits =: 4 : 0 NB. maxSize displayFits file path or http URL
 	if. (*/'http://'=7{.y) +. */'https://'=8{.y
-	do.	fdata =: gethttp y
-	else. fdata =: fread y
+	do.	fdata =. gethttp y
+	else. fdata =. fread y
 	end.
      'minmax' =. 0.5 0.95
-     'hdrLines imarray' =: splitFitsData fdata  NB. globals
+     'hdrLines imarray' =. splitFitsData fdata  NB. globals
 	NB. Scale each plane separately
     	r =.  minmax scaleT2D 0{imarray
 	select. 3<.{.$imarray   NB. use up to 3 planes
@@ -21,9 +21,9 @@ displayFits =: 4 : 0 NB. maxSize displayFits file path or http URL
 	  case. 1 do.
 		'g b'=. r;r
 	end.
-	fimage=: (r*2^16) + (g*2^8) + b  NB. global
+	fimage=. (r*2^16) + (g*2^8) + b
 	maxdim =. >./$fimage
-	sfimage=: (maxdim % maxdim <. x) sample2D fimage
+	sfimage=. (maxdim % maxdim <. x) sample2D fimage
 	view_image sfimage
 )
 1000 displayFits jpath'~user/projects/JFits/fitsSamples/NGC4500.fits'
