@@ -1,15 +1,17 @@
 NB. JFits/run.ijs
+
 require 'viewmat' 
 require 'web/gethttp'
 load '~user/projects/JFits/init.ijs'
 
+NB. Get image ready for display by reading, parsing, scaling and sampling
 displayFits =: 4 : 0 NB. maxSize displayFits file path or http URL
 	if. ('http://'-:7{.y) +. 'https://'-:8{.y
 	do.	fdata =. gethttp y
 	else. fdata =. fread y
 	end.
-     'minmax' =. 0.5 0.95
      'hdrLines imarray' =. splitFitsData fdata  NB. globals
+     'minmax' =. 0.5 0.95
       scaled =. minmax scaleT2D"_ _1 imarray NB. up to 3 planes
 	'r b' =. 0 _1 { scaled
 	if. 3>#scaled do. g =. <.-:r+b else. g =. 1{scaled end.
