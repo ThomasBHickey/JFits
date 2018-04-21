@@ -1,4 +1,5 @@
 NB. JFits/init.ijs
+
 NB. The Header data is in 80 byte rows.  8 bytes of label, possibly followed by '='
 getHdrVal =: 4 : '{.0". 9}. ({.I.(8{."1 x)-:"1 ]8{.y){x'NB. Pad label, find 1st, make rest numeric
 
