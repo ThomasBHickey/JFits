@@ -1,8 +1,4 @@
 NB. JFits/init.ijs
-
-require '~addons/media/imagekit/imagekit.ijs' 
-require 'web/gethttp'
-
 NB. The Header data is in 80 byte rows.  8 bytes of label, possibly followed by '='
 getHdrVal =: 4 : '{.0". 9}. ({.I.(8{."1 x)-:"1 ]8{.y){x'NB. Pad label, find 1st, make rest numeric
 
@@ -16,10 +12,10 @@ splitFitsData =: 3 : 0 NB. y is raw fits file contents
      (fields) =. hdata&getHdrVal&.> fields
 	shape =. ((NAXIS3>.1),NAXIS2,NAXIS1)  NB. 3D even if only 2D data
 	select. BITPIX
-	  case. _32 do. adata =. shape $ |. _1 fc |. rdata
-	  case. _64 do. adata =. shape $ |. _2 fc |. rdata
-	  case. 16  do. adata =. shape $ |. _1 ic |. rdata
-	  case. 32  do. adata =. shape $ |. _2 ic |. rdata
+	  case. _32 do. adata =. shape $ endian _1 fc endian rdata
+	  case. _64 do. adata =. shape $ endian _2 fc endian rdata
+	  case. 16  do. adata =. shape $ endian _1 ic endian rdata
+	  case. 32  do. adata =. shape $ endian _2 ic endian rdata
 	  case. do. 'Invalid BITPIX' assert 0
 	end.
 	hdata;adata

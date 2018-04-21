@@ -1,6 +1,7 @@
 NB. JFits/run.ijs
-
-load '~user\projects\JFits\init.ijs'
+require 'viewmat' 
+require 'web/gethttp'
+load '~user/projects/JFits/init.ijs'
 
 displayFits =: 4 : 0 NB. maxSize displayFits file path or http URL
 	if. ('http://'-:7{.y) +. 'https://'-:8{.y
@@ -17,6 +18,6 @@ displayFits =: 4 : 0 NB. maxSize displayFits file path or http URL
 	sfimage=. (maxdim % maxdim <. x) sample2D fimage
 )
 
-view_image 1000 displayFits jpath'~user/projects/JFits/fitsSamples/NGC4500.fits'
-view_image 1000 displayFits jpath'~user/projects/JFits/fitsSamples/FOCx38i0101t_c0f.fits'
-view_image 1000 displayFits 'https://fits.gsfc.nasa.gov/samples/WFPC2u5780205r_c0fx.fits'
+'rgb' viewmat 1000 displayFits jpath'~user/projects/JFits/fitsSamples/NGC4500.fits'
+'rgb' viewmat 1000 displayFits jpath'~user/projects/JFits/fitsSamples/FOCx38i0101t_c0f.fits'
+NB. 'rgb' viewmat 1000 displayFits 'https://fits.gsfc.nasa.gov/samples/WFPC2u5780205r_c0fx.fits'
