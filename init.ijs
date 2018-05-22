@@ -11,6 +11,14 @@ splitFitsData =: 3 : 0 NB. y is raw fits file contents
 	rdata  =. (numHdrBlocks*36*80) }. y  NB. raw Image data follows hdr blocks
 	fields =. ;: 'BITPIX NAXIS NAXIS1 NAXIS2 NAXIS3'
      (fields) =. hdata&getHdrVal&.> fields
+	if. NAXIS=0 do.  NB. Only works if next frame is an image extension
+	   xtenPos =. {.I. (8{."1 data80)-:"1 ]8{.'XTENSION'
+	   endPos =. {.I. (8{."1 xtenPos}.data80)-:"1 ]8{.'END'
+	   hdata =. (>:endPos){. xtenPos}.data80
+	   numHdrBlocks =. >:<.(xtenPos+endPos)%36
+	   rdata =. (numHdrBlocks*36*80) }. y
+     	   (fields) =. hdata&getHdrVal&.> fields
+	end.
 	shape =. ((NAXIS3>.1),NAXIS2,NAXIS1)  NB. 3D even if only 2D data
 	select. BITPIX
 	  case. _32 do. adata =. shape $ endian _1 fc endian rdata
