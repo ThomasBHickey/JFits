@@ -19,3 +19,5 @@ displayFits =: 4 : 0 NB. maxSize displayFits fitsdata
 'rgb' viewmat 1000 displayFits fread jpath'~user/projects/JFits/fitsSamples/NGC4500.fits'
 'rgb' viewmat 1000 displayFits fread jpath'~user/projects/JFits/fitsSamples/FOCx38i0101t_c0f.fits'
 NB. 'rgb' viewmat 1000 displayFits gethttp 'https://fits.gsfc.nasa.gov/samples/WFPC2u5780205r_c0fx.fits'
+'rgb' viewmat 1500 displayFits fread jpath'~user/projects/JFits/fitsSamples/color_hst_07469_06_wfpc2_f785lp_f555w_wf_sci.fits'
+'rgb' viewmat 1500 displayFits fread jpath'~user/projects/JFits/fitsSamples/color_hst_07436_09_wfpc2_f555w_f439w_f218w_pc_sci.fits'
