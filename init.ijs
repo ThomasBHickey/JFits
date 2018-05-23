@@ -21,10 +21,11 @@ splitFitsData =: 3 : 0 NB. y is raw fits file contents
 	end.
 	shape =. ((NAXIS3>.1),NAXIS2,NAXIS1)  NB. 3D even if only 2D data
 	select. BITPIX
+	  case.   8 do. adata =. shape $ endian a. i. endian rdata
+	  case.  16 do. adata =. shape $ endian _1 ic endian rdata
+	  case.  32 do. adata =. shape $ endian _2 ic endian rdata
 	  case. _32 do. adata =. shape $ endian _1 fc endian rdata
 	  case. _64 do. adata =. shape $ endian _2 fc endian rdata
-	  case. 16  do. adata =. shape $ endian _1 ic endian rdata
-	  case. 32  do. adata =. shape $ endian _2 ic endian rdata
 	  case. do. 'Invalid BITPIX' assert 0
 	end.
 	hdata;adata
