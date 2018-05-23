@@ -6,7 +6,8 @@ load '~user/projects/JFits/init.ijs'
 
 NB. Get image ready for display by parsing, scaling and sampling
 displayFits =: 4 : 0 NB. maxSize displayFits fitsdata
-    'hdrLines imarray' =. splitFitsData y  NB. globals
+    'hdrLines imarray' =. splitFitsData y
+	smoutput 'imarray shape';$imarray
     'minmax' =. 0.5 0.95
      scaled =. minmax scaleT2D"_ _1 imarray NB. up to 3 planes
     'r b' =. 0 _1 { scaled
@@ -22,3 +23,9 @@ NB. 'rgb' viewmat 1000 displayFits gethttp 'https://fits.gsfc.nasa.gov/samples/W
 'rgb' viewmat 1500 displayFits fread jpath'~user/projects/JFits/fitsSamples/color_hst_07469_06_wfpc2_f785lp_f555w_wf_sci.fits'
 'rgb' viewmat 1500 displayFits fread jpath'~user/projects/JFits/fitsSamples/color_hst_07436_09_wfpc2_f555w_f439w_f218w_pc_sci.fits'
 'rgb' viewmat 1500 displayFits fread jpath'~user/projects/JFits/fitsSamples/j8ff04011_drz.fits'
+
+'h im' =. splitFitsData fread jpath'~user/projects/JFits/fitsSamples/j8ff04011_drz.fits'
+
+$imarray
+
+#>imarray
