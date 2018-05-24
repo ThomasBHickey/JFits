@@ -6,7 +6,7 @@ load '~user/projects/JFits/init.ijs'
 
 NB. Get image ready for display by parsing, scaling and sampling
 displayFits =: 4 : 0 NB. maxSize displayFits fitsdata
-    'hdrLines imarray' =. splitFitsData y
+    imarray =. splitFitsData2 y
     'minmax' =. 0.5 0.95
      scaled =. minmax scaleT2D"_ _1 imarray NB. up to 3 planes
     'r b' =. 0 _1 { scaled
@@ -33,7 +33,8 @@ NB.      maxdim =. >./$fimage
 NB.      sfimage=. (maxdim % maxdim <. x) sample2D fimage
 NB. )
 
-NB. 'h img' =. splitFitsData fread jpath'~user/projects/JFits/fitsSamples/j8ff04011_drz.fits'
+NB. img =. splitFitsData2 fread jpath'~user/projects/JFits/fitsSamples/j8ff04011_drz.fits'
+NB. img =. splitFitsData2 fread jpath'~user/projects/JFits/fitsSamples/NGC4500.fits'
 NB.
 NB. 'rgb' viewmat 1000 displayImg 2  1136 1163 $ ,0 1{img
 
