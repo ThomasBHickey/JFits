@@ -1,7 +1,6 @@
 NB. JFits/run.ijs
 
-require 'viewmat' 
-require 'web/gethttp'
+require 'viewmat web/gethttp'
 load '~user/projects/JFits/init.ijs'
 
 NB. Get image ready for display by parsing, scaling and sampling
